@@ -30,7 +30,6 @@ export const skills: Skill[] = [
   // Automation
   { name: "Excel VBA", level: 85, category: "Automation" },
   { name: "Google Apps Script", level: 88, category: "Automation" },
-  { name: "JavaScript", level: 78, category: "Automation" },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
