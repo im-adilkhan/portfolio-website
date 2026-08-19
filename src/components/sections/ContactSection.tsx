@@ -14,6 +14,13 @@ import { fadeInUp, staggerContainer, VIEWPORT } from "@/lib/animations";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+/**
+ * GitHub Pages pe static export chalta hai, jahan /api/contact exist hi nahi karta.
+ * Us case mein form user ke email client ko prefilled mailto ke saath kholta hai.
+ * Server build (local dev / Vercel) pe ye false rehta hai aur API route hi chalta hai.
+ */
+const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+
 export default function ContactSection() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
@@ -24,7 +31,33 @@ export default function ContactSection() {
     setMessage("");
 
     const form = e.currentTarget;
-    const payload = Object.fromEntries(new FormData(form).entries());
+    const payload = Object.fromEntries(new FormData(form).entries()) as Record<
+      string,
+      string
+    >;
+
+    // honeypot bhara hua -> bot hai, chup-chaap ignore karo
+    if (payload.company) {
+      setStatus("sent");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    }
+
+    // static host: koi backend nahi, mailto pe fallback
+    if (IS_STATIC) {
+      const subject = payload.subject || `Portfolio message from ${payload.name}`;
+      const body = `From: ${payload.name} <${payload.email}>
+
+${payload.message}`;
+      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("sent");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    }
 
     try {
       const res = await fetch("/api/contact", {
@@ -99,6 +132,13 @@ export default function ContactSection() {
           viewport={VIEWPORT}
           className="space-y-5 rounded-lg border border-line bg-surface/40 p-6 backdrop-blur-xl sm:p-8"
         >
+          {IS_STATIC && (
+            <p className="label-mono leading-relaxed">
+              This site is hosted statically — submitting opens your email app with
+              the message ready to send.
+            </p>
+          )}
+
           {/* honeypot — bots ke liye */}
           <input
             type="text"
@@ -156,7 +196,7 @@ export default function ContactSection() {
                       exit={{ opacity: 0 }}
                       className="inline-flex items-center gap-2"
                     >
-                      Sent <Check size={16} />
+                      {IS_STATIC ? "Opened in mail app" : "Sent"} <Check size={16} />
                     </motion.span>
                   ) : (
                     <motion.span
@@ -166,7 +206,7 @@ export default function ContactSection() {
                       exit={{ opacity: 0 }}
                       className="inline-flex items-center gap-2"
                     >
-                      Send message <Send size={16} />
+                      {IS_STATIC ? "Compose email" : "Send message"} <Send size={16} />
                     </motion.span>
                   )}
                 </AnimatePresence>
