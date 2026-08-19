@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+
+    /* graphite console surface — charts sit on this, so it stays neutral */
+    --bg: 12 13 15;
+    --surface: 22 24 27;
+    --fg: 255 255 255;
+    --muted: 138 143 150;
+    --line: 40 43 48;
+    --grid: 255 255 255;
+
+    --accent: 57 135 229; /* SERIES[0] blue — UI chrome matches the charts */
+    --accent-2: 25 158 112; /* SERIES[2] aqua */
+    --warn: 201 133 0; /* SERIES[4] yellow */
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--fg));
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  /* har numeric readout column-aligned rahe — dashboard jaisa */
+  .font-mono,
+  th,
+  td {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--bg));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--line));
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--accent) / 0.6);
+  }
+
+  /* custom cursor active ho to default hide */
+  @media (min-width: 768px) and (pointer: fine) {
+    body:not(:has(*)) {
+      cursor: auto;
+    }
+  }
+}
+
+@layer components {
+  /* graph paper — fine 24px cells + coarse 120px major gridlines */
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, rgb(var(--grid) / 0.022) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid) / 0.022) 1px, transparent 1px),
+      linear-gradient(to right, rgb(var(--grid) / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid) / 0.045) 1px, transparent 1px);
+    background-size:
+      24px 24px,
+      24px 24px,
+      120px 120px,
+      120px 120px;
+  }
+
+  /* micro-label: har panel/section ka mono caption */
+  .label-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgb(var(--muted));
+  }
+
+  /* dashed axis rule — section headings ke neeche */
+  .axis-rule {
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      rgb(var(--line)) 0 6px,
+      transparent 6px 12px
+    );
+    background-size: 12px 1px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
