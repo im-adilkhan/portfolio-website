@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20 sm:pt-24">
       <About />
       <Skills />
 
-      <section className="mx-auto max-w-6xl px-6 pb-4">
-        <div className="rounded-lg border border-line bg-surface/40 p-6 backdrop-blur-xl">
+      <section className="section-x mx-auto max-w-6xl pb-4">
+        <div className="rounded-lg border border-line bg-surface/40 p-4 backdrop-blur-xl sm:p-6">
           <ExperienceBarChart />
         </div>
       </section>

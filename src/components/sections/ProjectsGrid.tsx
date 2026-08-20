@@ -16,7 +16,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.div variants={fadeInUp}>
       <Card className="h-full" label={`${project.year} · ${project.role}`}>
-        <Link href={`/projects/${project.slug}`} className="block h-full p-6">
+        <Link href={`/projects/${project.slug}`} className="block h-full p-5 sm:p-6">
           <div className="mb-5 flex items-start justify-between gap-4">
             <h3 className="font-display text-xl font-semibold tracking-tight">
               {project.title}
@@ -30,9 +30,12 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="text-sm leading-relaxed text-muted">{project.description}</p>
 
           {project.metrics.length > 0 ? (
-            <div className="my-6 grid grid-cols-3 gap-3 border-y border-line py-4">
+            <div className="my-6 grid grid-cols-1 gap-3 border-y border-line py-4 sm:grid-cols-3">
               {project.metrics.map((m, i) => (
-                <div key={m.label}>
+                <div
+                  key={m.label}
+                  className="flex items-baseline justify-between gap-3 sm:block"
+                >
                   <p
                     className="font-mono text-lg font-semibold tracking-tight"
                     style={{ color: SERIES[i % SERIES.length] }}
@@ -44,7 +47,9 @@ function ProjectCard({ project }: { project: Project }) {
                       decimals={m.decimals}
                     />
                   </p>
-                  <p className="label-mono mt-1.5 leading-relaxed">{m.label}</p>
+                  <p className="label-mono text-right leading-relaxed sm:mt-1.5 sm:text-left">
+                    {m.label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -78,7 +83,7 @@ export default function ProjectsGrid({
   showHeading?: boolean;
 }) {
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="projects" className="section-x section-y relative mx-auto max-w-6xl">
       {showHeading && (
         <SectionHeading
           eyebrow="Selected work"
@@ -92,7 +97,7 @@ export default function ProjectsGrid({
         initial="hidden"
         whileInView="visible"
         viewport={VIEWPORT}
-        className="grid gap-6 md:grid-cols-2"
+        className="grid gap-5 sm:gap-6 md:grid-cols-2"
       >
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />

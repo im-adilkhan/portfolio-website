@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20 sm:pt-24">
       <ProjectsGrid projects={projects} />
     </div>
   );

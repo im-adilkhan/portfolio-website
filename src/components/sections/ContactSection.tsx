@@ -79,14 +79,14 @@ ${payload.message}`;
   }
 
   return (
-    <section id="contact" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="contact" className="section-x section-y relative mx-auto max-w-6xl">
       <SectionHeading
         eyebrow="Contact"
         title="Let's talk"
         subtitle="Hiring for a Data Analyst / MIS / BI role, or have a dataset that needs sorting out? Send a message — I usually reply within 24 hours."
       />
 
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -96,7 +96,7 @@ ${payload.message}`;
           <motion.a
             variants={fadeInUp}
             href={`mailto:${profile.email}`}
-            className="block font-display text-2xl tracking-tight transition-colors hover:text-accent sm:text-3xl"
+            className="block break-all font-display text-xl tracking-tight transition-colors hover:text-accent sm:text-3xl"
           >
             {profile.email}
           </motion.a>
@@ -105,7 +105,7 @@ ${payload.message}`;
             {profile.location} · {profile.phone} · Open to remote
           </motion.p>
 
-          <motion.ul variants={fadeInUp} className="mt-10 space-y-3">
+          <motion.ul variants={fadeInUp} className="mt-8 space-y-3 sm:mt-10">
             {socials.map((s) => (
               <li key={s.label}>
                 <a
@@ -130,7 +130,7 @@ ${payload.message}`;
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="space-y-5 rounded-lg border border-line bg-surface/40 p-6 backdrop-blur-xl sm:p-8"
+          className="space-y-5 rounded-lg border border-line bg-surface/40 p-5 backdrop-blur-xl sm:p-8"
         >
           {IS_STATIC && (
             <p className="label-mono leading-relaxed">
@@ -174,7 +174,7 @@ ${payload.message}`;
             />
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="flex items-center gap-4">
+          <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-x-4 gap-y-3">
             <MagneticButton>
               <Button type="submit" disabled={status === "sending" || status === "sent"}>
                 <AnimatePresence mode="wait" initial={false}>

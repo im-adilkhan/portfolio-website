@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: Params) {
   const others = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
 
   return (
-    <article className="mx-auto max-w-4xl px-6 pb-28 pt-32">
+    <article className="section-x mx-auto max-w-4xl pb-20 pt-24 sm:pb-28 sm:pt-32">
       <Link
         href="/projects"
         className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
@@ -46,10 +46,10 @@ export default async function ProjectPage({ params }: Params) {
         <SplitText
           as="h1"
           text={project.title}
-          className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl"
+          className="mt-4 font-display text-[clamp(2rem,8vw,3rem)] font-semibold leading-tight tracking-tight"
         />
         <SlideUp delay={0.2}>
-          <p className="mt-5 text-lg leading-relaxed text-muted">{project.tagline}</p>
+          <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">{project.tagline}</p>
         </SlideUp>
 
         <SlideUp delay={0.3}>
@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: Params) {
       </header>
 
       {project.metrics.length > 0 && (
-        <StaggerContainer className="my-12 grid grid-cols-1 gap-6 rounded-lg border border-line bg-surface/40 p-6 backdrop-blur-xl sm:grid-cols-3">
+        <StaggerContainer className="my-10 grid grid-cols-1 gap-5 rounded-lg border border-line bg-surface/40 p-5 backdrop-blur-xl sm:my-12 sm:grid-cols-3 sm:gap-6 sm:p-6">
           {project.metrics.map((m) => (
             <div key={m.label}>
               <p className="font-display text-3xl font-semibold tracking-tight text-accent">
@@ -130,7 +130,7 @@ export default async function ProjectPage({ params }: Params) {
         )}
       </div>
 
-      <nav className="mt-20 grid gap-4 border-t border-line pt-10 sm:grid-cols-2">
+      <nav className="mt-16 grid gap-4 border-t border-line pt-10 sm:mt-20 sm:grid-cols-2">
         {others.map((p) => (
           <Link
             key={p.slug}

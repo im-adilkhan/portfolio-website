@@ -65,7 +65,7 @@ function SkillBar({
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="skills" className="section-x section-y relative mx-auto max-w-6xl">
       <SectionHeading
         eyebrow="Skills"
         title="Toolkit"
@@ -85,7 +85,7 @@ export default function Skills() {
         ))}
       </ul>
 
-      <div className="grid gap-x-12 gap-y-6 md:grid-cols-2">
+      <div className="grid gap-x-12 gap-y-5 sm:gap-y-6 md:grid-cols-2">
         {skills.map((skill, i) => (
           <SkillBar
             key={skill.name}
@@ -97,7 +97,7 @@ export default function Skills() {
         ))}
       </div>
 
-      <div className="mt-20 grid gap-8 rounded-lg border border-line bg-surface/40 p-6 backdrop-blur-xl lg:grid-cols-2">
+      <div className="mt-14 grid gap-8 rounded-lg border border-line bg-surface/40 p-4 backdrop-blur-xl sm:mt-20 sm:p-6 lg:grid-cols-2">
         <SkillRadarChart />
         <ToolsUsagePieChart />
       </div>

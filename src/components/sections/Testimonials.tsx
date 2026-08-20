@@ -11,7 +11,7 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-28">
+    <section className="section-x section-y relative mx-auto max-w-6xl">
       <SectionHeading
         eyebrow="Testimonials"
         title="What people say"

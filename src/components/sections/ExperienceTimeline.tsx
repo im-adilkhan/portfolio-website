@@ -16,7 +16,7 @@ export default function ExperienceTimeline() {
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="experience" className="section-x section-y relative mx-auto max-w-6xl">
       <SectionHeading
         eyebrow="Experience"
         title="Where I've worked"
@@ -73,7 +73,7 @@ export default function ExperienceTimeline() {
         </motion.div>
       </div>
 
-      <div className="mt-20">
+      <div className="mt-16 sm:mt-20">
         <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
           Education
         </h3>
@@ -88,7 +88,7 @@ export default function ExperienceTimeline() {
             <motion.div
               key={edu.degree}
               variants={fadeInUp}
-              className="rounded-xl border border-line bg-surface/40 p-6 backdrop-blur-xl"
+              className="rounded-xl border border-line bg-surface/40 p-5 backdrop-blur-xl sm:p-6"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h4 className="font-display text-lg font-semibold tracking-tight">

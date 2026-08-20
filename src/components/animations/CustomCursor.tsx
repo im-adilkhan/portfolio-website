@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useIsMobile, usePrefersReducedMotion } from "@/hooks/useMediaQuery";
+import { useMediaQuery, usePrefersReducedMotion } from "@/hooks/useMediaQuery";
 
 /** Dot + ring cursor. Hover pe ring badhta hai (a, button, [data-cursor]). */
 export default function CustomCursor() {
@@ -11,11 +11,11 @@ export default function CustomCursor() {
   const ringX = useSpring(x, { stiffness: 220, damping: 26, mass: 0.5 });
   const ringY = useSpring(y, { stiffness: 220, damping: 26, mass: 0.5 });
   const [hovering, setHovering] = useState(false);
-  const isMobile = useIsMobile();
+  const finePointer = useMediaQuery("(min-width: 768px) and (pointer: fine)");
   const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (isMobile || reduced) return;
+    if (!finePointer || reduced) return;
 
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
@@ -26,9 +26,9 @@ export default function CustomCursor() {
 
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, [x, y, isMobile, reduced]);
+  }, [x, y, finePointer, reduced]);
 
-  if (isMobile || reduced) return null;
+  if (!finePointer || reduced) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[100] hidden md:block">

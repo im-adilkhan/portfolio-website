@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-line">
       {/* big marquee name */}
-      <div className="flex overflow-hidden py-10 opacity-[0.06] select-none">
+      <div className="flex select-none overflow-hidden py-7 opacity-[0.06] sm:py-10">
         <div className="flex animate-marquee whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, i) => (
             <span
@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pb-12">
+      <div className="section-x mx-auto max-w-6xl pb-10 sm:pb-12">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -34,7 +34,7 @@ export default function Footer() {
             <p className="font-display text-2xl tracking-tight">Let&apos;s work together</p>
             <a
               href={`mailto:${profile.email}`}
-              className="mt-2 inline-flex items-center gap-1 text-muted transition-colors hover:text-accent"
+              className="mt-2 inline-flex items-center gap-1 break-all text-muted transition-colors hover:text-accent"
             >
               {profile.email}
               <ArrowUpRight size={16} />
@@ -62,7 +62,7 @@ export default function Footer() {
         </motion.div>
 
         {/* dataset footer — meta row */}
-        <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
+        <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:mt-12 sm:grid-cols-4">
           {[
             { k: "Location", v: profile.location },
             { k: "Status", v: profile.available ? "Open to roles" : "Booked" },

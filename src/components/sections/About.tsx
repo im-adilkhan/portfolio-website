@@ -12,14 +12,14 @@ import { fadeInUp } from "@/lib/animations";
 
 export default function About() {
   return (
-    <section id="about" className="relative mx-auto max-w-6xl px-6 py-28">
+    <section id="about" className="section-x section-y relative mx-auto max-w-6xl">
       <SectionHeading
         eyebrow="About"
         title="From raw data to decisions"
         subtitle={`Based in ${profile.location}. I build the reporting layer teams run on — and then automate the parts nobody should be doing by hand.`}
       />
 
-      <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
+      <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
         <div>
           <StaggerContainer className="space-y-5 text-base leading-relaxed text-muted">
             <motion.p variants={fadeInUp}>
@@ -48,12 +48,12 @@ export default function About() {
           </StaggerContainer>
 
           {/* KPI tiles — dashboard scorecard */}
-          <StaggerContainer className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
+          <StaggerContainer className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:mt-12 sm:grid-cols-4">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 variants={fadeInUp}
-                className="group relative bg-bg px-4 py-5 transition-colors hover:bg-surface"
+                className="group relative bg-bg px-3.5 py-4 transition-colors hover:bg-surface sm:px-4 sm:py-5"
               >
                 <span
                   aria-hidden
@@ -62,7 +62,7 @@ export default function About() {
                 />
                 <p className="label-mono mb-3 leading-relaxed">{s.label}</p>
                 <p
-                  className="font-mono text-3xl font-semibold tracking-tight"
+                  className="font-mono text-2xl font-semibold tracking-tight sm:text-3xl"
                   style={{ color: SERIES[i % SERIES.length] }}
                 >
                   <CountUp end={s.value} suffix={s.suffix} decimals={s.decimals} />
