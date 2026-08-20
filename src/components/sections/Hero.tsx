@@ -23,7 +23,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="min-h-screen-safe relative flex items-center overflow-hidden py-24 sm:py-28"
     >
       {/* graph paper */}
       <div
@@ -39,14 +39,14 @@ export default function Hero() {
 
       <motion.div
         style={{ y, opacity }}
-        className="relative mx-auto w-full max-w-6xl px-6 pt-28"
+        className="section-x relative mx-auto w-full max-w-6xl pt-10 sm:pt-14"
       >
         {/* status bar */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-7 inline-flex flex-wrap items-center gap-x-3 gap-y-2 rounded-md border border-line bg-surface/60 px-3 py-2 backdrop-blur-xl"
+          className="mb-6 inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-2 rounded-md border border-line bg-surface/60 px-3 py-2 backdrop-blur-xl sm:mb-7"
         >
           <span className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5">
@@ -57,16 +57,30 @@ export default function Hero() {
               {profile.available ? "Available for work" : "Currently booked"}
             </span>
           </span>
-          <span aria-hidden className="h-3 w-px bg-line" />
+          {/* dividers sirf tab jab sab ek line mein aata ho */}
+          <span aria-hidden className="hidden h-3 w-px bg-line sm:block" />
           <span className="label-mono">{profile.location}</span>
-          <span aria-hidden className="h-3 w-px bg-line" />
-          <span className="label-mono">SQL · Python · Power BI</span>
+          <span aria-hidden className="hidden h-3 w-px bg-line sm:block" />
+          <span className="label-mono hidden sm:inline">SQL · Python · Power BI</span>
         </motion.div>
 
-        <h1 className="font-display text-[13vw] font-semibold leading-[0.92] tracking-tighter sm:text-[9vw] lg:text-[7.5rem]">
-          <SplitText text={profile.name} delay={0.25} stagger={0.035} />
-          <span className="block text-accent">
-            <TypingRoles roles={profile.roles} />
+        {/*
+         * Type scale clamp pe hai, vw pe nahi: role line naam se chhoti rehti hai
+         * taaki sabse lamba role ("Automation Engineer") 360px phone pe bhi ek
+         * line mein fit ho — warna rotate hote waqt layout 1<->2 line jump karta.
+         */}
+        <h1 className="font-display font-semibold leading-[0.94] tracking-tighter">
+          <SplitText
+            text={profile.name}
+            delay={0.25}
+            stagger={0.035}
+            className="text-[clamp(2.5rem,11vw,7.5rem)]"
+          />
+          <span className="mt-1 block text-accent">
+            <TypingRoles
+              roles={profile.roles}
+              className="text-[clamp(1.75rem,7.6vw,5.25rem)] leading-[1.05]"
+            />
           </span>
         </h1>
 
@@ -74,7 +88,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: EASE_OUT_EXPO }}
-          className="mt-8 max-w-xl text-lg leading-relaxed text-muted"
+          className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:mt-8 sm:text-lg"
         >
           {profile.bio}
         </motion.p>
@@ -83,25 +97,27 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.95, ease: EASE_OUT_EXPO }}
-          className="mt-10 flex flex-wrap items-center gap-4"
+          className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-4"
         >
-          <MagneticButton>
-            <Button href="/projects">View my work</Button>
+          <MagneticButton className="max-sm:w-full">
+            <Button href="/projects" className="max-sm:w-full">
+              View my work
+            </Button>
           </MagneticButton>
-          <MagneticButton>
-            <Button href="/contact" variant="outline">
+          <MagneticButton className="max-sm:w-full">
+            <Button href="/contact" variant="outline" className="max-sm:w-full">
               Get in touch
             </Button>
           </MagneticButton>
         </motion.div>
-
       </motion.div>
 
+      {/* short/landscape screens pe ye arrow content ke upar chadh jaata tha */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="absolute inset-x-0 bottom-8 flex justify-center"
+        className="absolute inset-x-0 bottom-8 hidden justify-center [@media(min-height:720px)]:flex"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
@@ -131,7 +147,7 @@ function TrendBackdrop() {
       aria-hidden
       viewBox={`0 0 ${w} ${h}`}
       preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-[38vh] w-full opacity-70"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-[30vh] w-full opacity-70 sm:h-[38vh]"
     >
       <defs>
         <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
