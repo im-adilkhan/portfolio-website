@@ -25,12 +25,12 @@ export default function PipelineCard() {
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-lg border border-line bg-surface/60 p-6 backdrop-blur-xl"
+      className="rounded-lg border border-line bg-surface/60 p-5 backdrop-blur-xl sm:p-6"
     >
       <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
         Loan Analytics pipeline
       </p>
-      <p className="mt-2 font-display text-3xl font-semibold tracking-tight">
+      <p className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
         <CountUp end={2.2} decimals={1} suffix="M+" />
         <span className="ml-2 align-middle text-xs font-normal text-muted">
           records processed

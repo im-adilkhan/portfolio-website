@@ -16,36 +16,43 @@ export default function ToolsUsagePieChart() {
       initial={{ opacity: 0, scale: 0.92 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="h-[340px] w-full"
+      className="flex w-full flex-col sm:h-[360px]"
     >
       <h3 className="mb-1 text-sm font-medium text-fg">Where the week actually goes</h3>
       <p className="mb-3 font-mono text-[11px] text-muted">Share of hands-on time</p>
 
-      <div className="flex h-[82%] items-center gap-4">
-        <ResponsiveContainer width="60%" height="100%">
-          <PieChart>
-            <Tooltip
-              contentStyle={tooltipStyle}
-              formatter={(v: number, n: string) => [`${v}%`, n]}
-            />
-            <Pie
-              data={toolsUsage}
-              dataKey="value"
-              nameKey="name"
-              innerRadius="55%"
-              outerRadius="85%"
-              paddingAngle={2}
-              stroke={CHART.surface}
-              strokeWidth={2}
-              isAnimationActive={inView}
-              animationDuration={1200}
-            >
-              {toolsUsage.map((_, i) => (
-                <Cell key={i} fill={SERIES[i % SERIES.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+      {/*
+       * Pehle donut 60% width leta tha aur legend baaki 40% mein — 360px phone pe
+       * legend ki rows ("Automation scripting  15%") toot rahi thi. Mobile pe ab
+       * donut upar, legend neeche full width.
+       */}
+      <div className="flex min-h-0 flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:gap-4">
+        <div className="h-[190px] w-full shrink-0 sm:h-full sm:w-[58%]">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Tooltip
+                contentStyle={tooltipStyle}
+                formatter={(v: number, n: string) => [`${v}%`, n]}
+              />
+              <Pie
+                data={toolsUsage}
+                dataKey="value"
+                nameKey="name"
+                innerRadius="55%"
+                outerRadius="85%"
+                paddingAngle={2}
+                stroke={CHART.surface}
+                strokeWidth={2}
+                isAnimationActive={inView}
+                animationDuration={1200}
+              >
+                {toolsUsage.map((_, i) => (
+                  <Cell key={i} fill={SERIES[i % SERIES.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
         {/* legend — identity kabhi color-alone nahi */}
         <ul className="flex-1 space-y-2">
@@ -56,8 +63,10 @@ export default function ToolsUsagePieChart() {
                 style={{ background: SERIES[i % SERIES.length] }}
                 aria-hidden
               />
-              <span className="text-fg">{t.name}</span>
-              <span className="ml-auto font-mono tabular-nums text-muted">{t.value}%</span>
+              <span className="min-w-0 truncate text-fg">{t.name}</span>
+              <span className="ml-auto shrink-0 font-mono tabular-nums text-muted">
+                {t.value}%
+              </span>
             </li>
           ))}
         </ul>
