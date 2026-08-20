@@ -26,12 +26,24 @@
   html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    /* landscape rotate pe iOS text ko inflate karta hai — band */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     background-color: rgb(var(--bg));
     color: rgb(var(--fg));
     font-family: var(--font-sans), system-ui, sans-serif;
+    /* koi bhi wide child (marquee, big type) horizontal scrollbar na de.
+       `clip` isliye — `hidden` position:sticky ko tod deta hai. */
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* fixed navbar ke neeche anchor jump na ho */
+  section[id] {
+    scroll-margin-top: 5.5rem;
   }
 
   /* har numeric readout column-aligned rahe — dashboard jaisa */
@@ -45,24 +57,20 @@
     background: rgb(var(--accent) / 0.3);
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgb(var(--bg));
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgb(var(--line));
-    border-radius: 2px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--accent) / 0.6);
-  }
-
-  /* custom cursor active ho to default hide */
-  @media (min-width: 768px) and (pointer: fine) {
-    body:not(:has(*)) {
-      cursor: auto;
+  /* touch/coarse-pointer devices pe scrollbar styling ka koi matlab nahi */
+  @media (pointer: fine) {
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgb(var(--bg));
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgb(var(--line));
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgb(var(--accent) / 0.6);
     }
   }
 }
@@ -80,6 +88,17 @@
       24px 24px,
       120px 120px,
       120px 120px;
+  }
+
+  /* mobile pe 24px cells bahut ghane lagte hain */
+  @media (max-width: 640px) {
+    .grid-paper {
+      background-size:
+        18px 18px,
+        18px 18px,
+        90px 90px,
+        90px 90px;
+    }
   }
 
   /* micro-label: har panel/section ka mono caption */
@@ -102,6 +121,35 @@
     );
     background-size: 12px 1px;
   }
+
+  /* har section ka standard rhythm — mobile pe kam, desktop pe pura */
+  .section-y {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  @media (min-width: 640px) {
+    .section-y {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+
+  .section-x {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .section-x {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
 }
 
 @layer utilities {
@@ -110,6 +158,16 @@
   }
   .tnum {
     font-variant-numeric: tabular-nums;
+  }
+
+  /*
+   * 100vh mobile browsers pe address bar ko count karta hai -> hero viewport se
+   * bada ho jaata hai. svh chhoti (collapsed toolbar) height leta hai.
+   * vh pehle likha hai taaki purane browsers usi pe fallback karein.
+   */
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: 100svh;
   }
 }
 
